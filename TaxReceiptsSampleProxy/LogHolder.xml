@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+To: /services/ReceiptsWSDLProxy, 
+WSAction: http://localhost:8280/services/ReceiptsWSDLProxy, 
+SOAPAction: http://localhost:8280/services/ReceiptsWSDLProxy, 
+MessageID: urn:uuid:20bb5a89-fa11-4dd7-b596-51f0a3e69493, 
+Direction: request, 
+Envelope: <?xml version='1.0' encoding='utf-8'?>
+<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+<soapenv:Body>
+<tax:_getreceipts_yearend xmlns:tax="http://localhost:8280/services/ReceiptsWSDLProxy">
+<tax:YearEnd>2005</tax:YearEnd>
+</tax:_getreceipts_yearend>
+</soapenv:Body>
+</soapenv:Envelope> 
+
