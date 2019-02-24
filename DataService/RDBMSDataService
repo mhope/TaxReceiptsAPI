@@ -1,0 +1,194 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://ws.wso2.org/dataservice">
+   <wsdl:documentation/>
+   <wsdl:types>
+      <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+         <xs:element name="DataServiceFault">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="current_params" type="xs:string"/>
+                  <xs:element name="current_request_name" type="xs:string"/>
+                  <xs:element name="nested_exception" type="xs:string"/>
+                  <xs:element name="source_data_service">
+                     <xs:complexType>
+                        <xs:sequence>
+                           <xs:element name="location" type="xs:string"/>
+                           <xs:element name="default_namespace" type="xs:string"/>
+                           <xs:element name="description" type="xs:string"/>
+                           <xs:element name="data_service_name" type="xs:string"/>
+                        </xs:sequence>
+                     </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ds_code" type="xs:string"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="REQUEST_STATUS" type="xs:string"/>
+         <xs:element name="DATA_SERVICE_RESPONSE">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:any minOccurs="0"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetReceiptsOp">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="YearEnd" nillable="true" type="xs:short"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Entries" type="ns0:Entries"/>
+         <xs:complexType name="Entries">
+            <xs:sequence>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="Entry" type="ns0:Entry"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="Entry">
+            <xs:sequence>
+               <xs:element name="year_end" nillable="true" type="xs:integer"/>
+               <xs:element name="total_paid_over" nillable="true" type="xs:integer"/>
+               <xs:element name="total_hmrc_receipts" nillable="true" type="xs:integer"/>
+               <xs:element name="paye" nillable="true" type="xs:integer"/>
+               <xs:element name="sa" nillable="true" type="xs:integer"/>
+               <xs:element name="capital_gains_tax" nillable="true" type="xs:integer"/>
+               <xs:element name="nics" nillable="true" type="xs:integer"/>
+               <xs:element name="vat" nillable="true" type="xs:integer"/>
+               <xs:element name="total_corporation_tax" nillable="true" type="xs:integer"/>
+               <xs:element name="offshore_corporation_tax" nillable="true" type="xs:integer"/>
+               <xs:element name="bank_levy" nillable="true" type="xs:integer"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="_getreceipts_yearend">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="YearEnd" nillable="true" type="xs:short"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="_getreceipts_yearendRequest">
+      <wsdl:part name="parameters" element="ns0:_getreceipts_yearend"/>
+   </wsdl:message>
+   <wsdl:message name="_getreceipts_yearendResponse">
+      <wsdl:part name="parameters" element="ns0:Entries"/>
+   </wsdl:message>
+   <wsdl:message name="DataServiceFault">
+      <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+   </wsdl:message>
+   <wsdl:message name="GetReceiptsOpRequest">
+      <wsdl:part name="parameters" element="ns0:GetReceiptsOp"/>
+   </wsdl:message>
+   <wsdl:message name="GetReceiptsOpResponse">
+      <wsdl:part name="parameters" element="ns0:Entries"/>
+   </wsdl:message>
+   <wsdl:portType name="RDBMSDataServicePortType">
+      <wsdl:operation name="_getreceipts_yearend">
+         <wsdl:documentation/>
+         <wsdl:input message="ns0:_getreceipts_yearendRequest" wsaw:Action="urn:_getreceipts_yearend"/>
+         <wsdl:output message="ns0:_getreceipts_yearendResponse" wsaw:Action="urn:_getreceipts_yearendResponse"/>
+         <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:_getreceipts_yearendDataServiceFault"/>
+      </wsdl:operation>
+      <wsdl:operation name="GetReceiptsOp">
+         <wsdl:documentation/>
+         <wsdl:input message="ns0:GetReceiptsOpRequest" wsaw:Action="urn:GetReceiptsOp"/>
+         <wsdl:output message="ns0:GetReceiptsOpResponse" wsaw:Action="urn:GetReceiptsOpResponse"/>
+         <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:GetReceiptsOpDataServiceFault"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="RDBMSDataServiceSOAP11Binding" type="ns0:RDBMSDataServicePortType">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="_getreceipts_yearend">
+         <soap:operation soapAction="urn:_getreceipts_yearend" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetReceiptsOp">
+         <soap:operation soapAction="urn:GetReceiptsOp" style="document"/>
+         <wsdl:input>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="RDBMSDataServiceSOAP12Binding" type="ns0:RDBMSDataServicePortType">
+      <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="_getreceipts_yearend">
+         <soap12:operation soapAction="urn:_getreceipts_yearend" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap12:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetReceiptsOp">
+         <soap12:operation soapAction="urn:GetReceiptsOp" style="document"/>
+         <wsdl:input>
+            <soap12:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"/>
+         </wsdl:output>
+         <wsdl:fault name="DataServiceFault">
+            <soap12:fault use="literal" name="DataServiceFault"/>
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="RDBMSDataServiceHttpBinding" type="ns0:RDBMSDataServicePortType">
+      <http:binding verb="POST"/>
+      <wsdl:operation name="_getreceipts_yearend">
+         <http:operation location="receipts/(YearEnd)"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="GetReceiptsOp">
+         <http:operation location="GetReceiptsOp"/>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="RDBMSDataService">
+      <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:RDBMSDataServiceSOAP11Binding">
+         <soap:address location="https://mintydev:8243/services/RDBMSDataService.SecureSOAP11Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="SOAP11Endpoint" binding="ns0:RDBMSDataServiceSOAP11Binding">
+         <soap:address location="http://mintydev:8280/services/RDBMSDataService.SOAP11Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:RDBMSDataServiceSOAP12Binding">
+         <soap12:address location="https://mintydev:8243/services/RDBMSDataService.SecureSOAP12Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="SOAP12Endpoint" binding="ns0:RDBMSDataServiceSOAP12Binding">
+         <soap12:address location="http://mintydev:8280/services/RDBMSDataService.SOAP12Endpoint"/>
+      </wsdl:port>
+      <wsdl:port name="SecureHTTPEndpoint" binding="ns0:RDBMSDataServiceHttpBinding">
+         <http:address location="https://mintydev:8243/services/RDBMSDataService.SecureHTTPEndpoint"/>
+      </wsdl:port>
+      <wsdl:port name="HTTPEndpoint" binding="ns0:RDBMSDataServiceHttpBinding">
+         <http:address location="http://mintydev:8280/services/RDBMSDataService.HTTPEndpoint"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>
