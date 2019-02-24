@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="37e2b21f-41cb-475a-b0ef-528eabff05f3" activeEnvironment="Default" name="Tax Receipts SOAP Data Service" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="80c612d3-ae7e-4eed-afbf-1d92c5fb74a3" wsaVersion="NONE" name="RDBMSDataServiceSOAP11Binding" type="wsdl" bindingName="{http://ws.wso2.org/dataservice}RDBMSDataServiceSOAP11Binding" soapVersion="1_1" anonymous="optional" definition="file:/home/mark/projects/inteview/hmrc/RDBMSDataService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/mark/projects/inteview/hmrc/RDBMSDataService"><con:part><con:url>file:/home/mark/projects/inteview/hmrc/RDBMSDataService</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://ws.wso2.org/dataservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+      <xs:element name="DataServiceFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="current_params" type="xs:string"/>
+            <xs:element name="current_request_name" type="xs:string"/>
+            <xs:element name="nested_exception" type="xs:string"/>
+            <xs:element name="source_data_service">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="location" type="xs:string"/>
+                  <xs:element name="default_namespace" type="xs:string"/>
+                  <xs:element name="description" type="xs:string"/>
+                  <xs:element name="data_service_name" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ds_code" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="REQUEST_STATUS" type="xs:string"/>
+      <xs:element name="DATA_SERVICE_RESPONSE">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReceiptsOp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="YearEnd" nillable="true" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Entries" type="ns0:Entries"/>
+      <xs:complexType name="Entries">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Entry" type="ns0:Entry"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Entry">
+        <xs:sequence>
+          <xs:element name="year_end" nillable="true" type="xs:integer"/>
+          <xs:element name="total_paid_over" nillable="true" type="xs:integer"/>
+          <xs:element name="total_hmrc_receipts" nillable="true" type="xs:integer"/>
+          <xs:element name="paye" nillable="true" type="xs:integer"/>
+          <xs:element name="sa" nillable="true" type="xs:integer"/>
+          <xs:element name="capital_gains_tax" nillable="true" type="xs:integer"/>
+          <xs:element name="nics" nillable="true" type="xs:integer"/>
+          <xs:element name="vat" nillable="true" type="xs:integer"/>
+          <xs:element name="total_corporation_tax" nillable="true" type="xs:integer"/>
+          <xs:element name="offshore_corporation_tax" nillable="true" type="xs:integer"/>
+          <xs:element name="bank_levy" nillable="true" type="xs:integer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="_getreceipts_yearend">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="YearEnd" nillable="true" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="_getreceipts_yearendRequest">
+    <wsdl:part name="parameters" element="ns0:_getreceipts_yearend"/>
+  </wsdl:message>
+  <wsdl:message name="_getreceipts_yearendResponse">
+    <wsdl:part name="parameters" element="ns0:Entries"/>
+  </wsdl:message>
+  <wsdl:message name="DataServiceFault">
+    <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+  </wsdl:message>
+  <wsdl:message name="GetReceiptsOpRequest">
+    <wsdl:part name="parameters" element="ns0:GetReceiptsOp"/>
+  </wsdl:message>
+  <wsdl:message name="GetReceiptsOpResponse">
+    <wsdl:part name="parameters" element="ns0:Entries"/>
+  </wsdl:message>
+  <wsdl:portType name="RDBMSDataServicePortType">
+    <wsdl:operation name="_getreceipts_yearend">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:_getreceipts_yearendRequest" wsaw:Action="urn:_getreceipts_yearend"/>
+      <wsdl:output message="ns0:_getreceipts_yearendResponse" wsaw:Action="urn:_getreceipts_yearendResponse"/>
+      <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:_getreceipts_yearendDataServiceFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:GetReceiptsOpRequest" wsaw:Action="urn:GetReceiptsOp"/>
+      <wsdl:output message="ns0:GetReceiptsOpResponse" wsaw:Action="urn:GetReceiptsOpResponse"/>
+      <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:GetReceiptsOpDataServiceFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RDBMSDataServiceSOAP11Binding" type="ns0:RDBMSDataServicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="_getreceipts_yearend">
+      <soap:operation soapAction="urn:_getreceipts_yearend" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <soap:operation soapAction="urn:GetReceiptsOp" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RDBMSDataServiceSOAP12Binding" type="ns0:RDBMSDataServicePortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="_getreceipts_yearend">
+      <soap12:operation soapAction="urn:_getreceipts_yearend" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <soap12:operation soapAction="urn:GetReceiptsOp" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RDBMSDataServiceHttpBinding" type="ns0:RDBMSDataServicePortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="_getreceipts_yearend">
+      <http:operation location="receipts/(YearEnd)"/>
+      <wsdl:input>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <http:operation location="GetReceiptsOp"/>
+      <wsdl:input>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RDBMSDataService">
+    <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:RDBMSDataServiceSOAP11Binding">
+      <soap:address location="https://mintydev:8243/services/RDBMSDataService.SecureSOAP11Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SOAP11Endpoint" binding="ns0:RDBMSDataServiceSOAP11Binding">
+      <soap:address location="http://mintydev:8280/services/RDBMSDataService.SOAP11Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:RDBMSDataServiceSOAP12Binding">
+      <soap12:address location="https://mintydev:8243/services/RDBMSDataService.SecureSOAP12Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SOAP12Endpoint" binding="ns0:RDBMSDataServiceSOAP12Binding">
+      <soap12:address location="http://mintydev:8280/services/RDBMSDataService.SOAP12Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SecureHTTPEndpoint" binding="ns0:RDBMSDataServiceHttpBinding">
+      <http:address location="https://mintydev:8243/services/RDBMSDataService.SecureHTTPEndpoint"/>
+    </wsdl:port>
+    <wsdl:port name="HTTPEndpoint" binding="ns0:RDBMSDataServiceHttpBinding">
+      <http:address location="http://mintydev:8280/services/RDBMSDataService.HTTPEndpoint"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://mintydev:8280/services/RDBMSDataService.SOAP11Endpoint</con:endpoint><con:endpoint>https://mintydev:8243/services/RDBMSDataService.SecureSOAP11Endpoint</con:endpoint></con:endpoints><con:operation id="84250037-6e5a-47d9-afc2-0ecce4667aa6" isOneWay="false" action="urn:_getreceipts_yearend" name="_getreceipts_yearend" bindingOperationName="_getreceipts_yearend" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="53a73d5b-6dc8-4f45-9007-e9f8e87e0e1e" name="Request for valid year"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mintydev:8080/services/RDBMSDataService.SOAP12Endpoint</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <dat:_getreceipts_yearend>
+         <dat:YearEnd>2005</dat:YearEnd>
+      </dat:_getreceipts_yearend>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:_getreceipts_yearend"/><con:wsrmConfig version="1.2"/></con:call><con:call id="c5145d83-f9d6-4edc-a7e1-90e978a81f7c" name="Request for valid year"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://mintydev:8280/services/RDBMSDataService.SOAP11Endpoint</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:_getreceipts_yearend"/></con:call></con:operation><con:operation id="e7b6023f-fb16-400f-9a86-d1025bcca6ce" isOneWay="false" action="urn:GetReceiptsOp" name="GetReceiptsOp" bindingOperationName="GetReceiptsOp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="27f36542-3962-4fe7-88b4-67a8d4ce5c87" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://mintydev:8280/services/RDBMSDataService.SOAP11Endpoint</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <dat:GetReceiptsOp>
+         <dat:YearEnd>?</dat:YearEnd>
+      </dat:GetReceiptsOp>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:GetReceiptsOp"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="327f495c-f7c4-41a3-bab9-ca10757a6373" wsaVersion="NONE" name="RDBMSDataServiceSOAP12Binding" type="wsdl" bindingName="{http://ws.wso2.org/dataservice}RDBMSDataServiceSOAP12Binding" soapVersion="1_2" anonymous="optional" definition="file:/home/mark/projects/inteview/hmrc/RDBMSDataService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/mark/projects/inteview/hmrc/RDBMSDataService"><con:part><con:url>file:/home/mark/projects/inteview/hmrc/RDBMSDataService</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://ws.wso2.org/dataservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+      <xs:element name="DataServiceFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="current_params" type="xs:string"/>
+            <xs:element name="current_request_name" type="xs:string"/>
+            <xs:element name="nested_exception" type="xs:string"/>
+            <xs:element name="source_data_service">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="location" type="xs:string"/>
+                  <xs:element name="default_namespace" type="xs:string"/>
+                  <xs:element name="description" type="xs:string"/>
+                  <xs:element name="data_service_name" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ds_code" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="REQUEST_STATUS" type="xs:string"/>
+      <xs:element name="DATA_SERVICE_RESPONSE">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReceiptsOp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="YearEnd" nillable="true" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Entries" type="ns0:Entries"/>
+      <xs:complexType name="Entries">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Entry" type="ns0:Entry"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Entry">
+        <xs:sequence>
+          <xs:element name="year_end" nillable="true" type="xs:integer"/>
+          <xs:element name="total_paid_over" nillable="true" type="xs:integer"/>
+          <xs:element name="total_hmrc_receipts" nillable="true" type="xs:integer"/>
+          <xs:element name="paye" nillable="true" type="xs:integer"/>
+          <xs:element name="sa" nillable="true" type="xs:integer"/>
+          <xs:element name="capital_gains_tax" nillable="true" type="xs:integer"/>
+          <xs:element name="nics" nillable="true" type="xs:integer"/>
+          <xs:element name="vat" nillable="true" type="xs:integer"/>
+          <xs:element name="total_corporation_tax" nillable="true" type="xs:integer"/>
+          <xs:element name="offshore_corporation_tax" nillable="true" type="xs:integer"/>
+          <xs:element name="bank_levy" nillable="true" type="xs:integer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="_getreceipts_yearend">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="YearEnd" nillable="true" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="_getreceipts_yearendRequest">
+    <wsdl:part name="parameters" element="ns0:_getreceipts_yearend"/>
+  </wsdl:message>
+  <wsdl:message name="_getreceipts_yearendResponse">
+    <wsdl:part name="parameters" element="ns0:Entries"/>
+  </wsdl:message>
+  <wsdl:message name="DataServiceFault">
+    <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+  </wsdl:message>
+  <wsdl:message name="GetReceiptsOpRequest">
+    <wsdl:part name="parameters" element="ns0:GetReceiptsOp"/>
+  </wsdl:message>
+  <wsdl:message name="GetReceiptsOpResponse">
+    <wsdl:part name="parameters" element="ns0:Entries"/>
+  </wsdl:message>
+  <wsdl:portType name="RDBMSDataServicePortType">
+    <wsdl:operation name="_getreceipts_yearend">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:_getreceipts_yearendRequest" wsaw:Action="urn:_getreceipts_yearend"/>
+      <wsdl:output message="ns0:_getreceipts_yearendResponse" wsaw:Action="urn:_getreceipts_yearendResponse"/>
+      <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:_getreceipts_yearendDataServiceFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <wsdl:documentation/>
+      <wsdl:input message="ns0:GetReceiptsOpRequest" wsaw:Action="urn:GetReceiptsOp"/>
+      <wsdl:output message="ns0:GetReceiptsOpResponse" wsaw:Action="urn:GetReceiptsOpResponse"/>
+      <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:GetReceiptsOpDataServiceFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RDBMSDataServiceSOAP11Binding" type="ns0:RDBMSDataServicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="_getreceipts_yearend">
+      <soap:operation soapAction="urn:_getreceipts_yearend" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <soap:operation soapAction="urn:GetReceiptsOp" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RDBMSDataServiceSOAP12Binding" type="ns0:RDBMSDataServicePortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="_getreceipts_yearend">
+      <soap12:operation soapAction="urn:_getreceipts_yearend" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <soap12:operation soapAction="urn:GetReceiptsOp" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RDBMSDataServiceHttpBinding" type="ns0:RDBMSDataServicePortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="_getreceipts_yearend">
+      <http:operation location="receipts/(YearEnd)"/>
+      <wsdl:input>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptsOp">
+      <http:operation location="GetReceiptsOp"/>
+      <wsdl:input>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="text/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RDBMSDataService">
+    <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:RDBMSDataServiceSOAP11Binding">
+      <soap:address location="https://mintydev:8243/services/RDBMSDataService.SecureSOAP11Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SOAP11Endpoint" binding="ns0:RDBMSDataServiceSOAP11Binding">
+      <soap:address location="http://mintydev:8280/services/RDBMSDataService.SOAP11Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:RDBMSDataServiceSOAP12Binding">
+      <soap12:address location="https://mintydev:8243/services/RDBMSDataService.SecureSOAP12Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SOAP12Endpoint" binding="ns0:RDBMSDataServiceSOAP12Binding">
+      <soap12:address location="http://mintydev:8280/services/RDBMSDataService.SOAP12Endpoint"/>
+    </wsdl:port>
+    <wsdl:port name="SecureHTTPEndpoint" binding="ns0:RDBMSDataServiceHttpBinding">
+      <http:address location="https://mintydev:8243/services/RDBMSDataService.SecureHTTPEndpoint"/>
+    </wsdl:port>
+    <wsdl:port name="HTTPEndpoint" binding="ns0:RDBMSDataServiceHttpBinding">
+      <http:address location="http://mintydev:8280/services/RDBMSDataService.HTTPEndpoint"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://mintydev:8280/services/RDBMSDataService.SOAP12Endpoint</con:endpoint><con:endpoint>https://mintydev:8243/services/RDBMSDataService.SecureSOAP12Endpoint</con:endpoint></con:endpoints><con:operation id="794b182e-f2d0-4f55-9062-ee94736be629" isOneWay="false" action="urn:_getreceipts_yearend" name="_getreceipts_yearend" bindingOperationName="_getreceipts_yearend" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7ebc3169-32cf-4989-873b-db023881925b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://mintydev:8280/services/RDBMSDataService.SOAP12Endpoint</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dat="http://ws.wso2.org/dataservice">
+   <soap:Header/>
+   <soap:Body>
+      <dat:_getreceipts_yearend>
+         <dat:YearEnd>?</dat:YearEnd>
+      </dat:_getreceipts_yearend>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:_getreceipts_yearend"/></con:call></con:operation><con:operation id="4b9467c2-1fbe-48f3-95d9-643e67d00bf2" isOneWay="false" action="urn:GetReceiptsOp" name="GetReceiptsOp" bindingOperationName="GetReceiptsOp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7fdb8ff3-9107-4cd8-bcc5-d5a04a92efe9" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://mintydev:8280/services/RDBMSDataService.SOAP12Endpoint</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dat="http://ws.wso2.org/dataservice">
+   <soap:Header/>
+   <soap:Body>
+      <dat:GetReceiptsOp>
+         <dat:YearEnd>?</dat:YearEnd>
+      </dat:GetReceiptsOp>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:GetReceiptsOp"/></con:call></con:operation></con:interface><con:testSuite id="9b9fecb8-8a83-4fb6-90f9-967219226d0f" name="YearValuesSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="8c5de43e-906f-488a-9dba-dc650f504150" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidYear" searchProperties="true"><con:settings/><con:testStep type="request" name="SOAPTaxRequestWithValidYear" id="3021945b-2db6-4cd0-9c57-88b5d09b5bb8"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RDBMSDataServiceSOAP12Binding</con:interface><con:operation>_getreceipts_yearend</con:operation><con:request name="SOAPTaxRequestWithValidYear" id="b23c6b50-3cf0-4ec8-8782-f258fb0103bb"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="SOAPAction" value="http://localhost:8280/services/ReceiptsWSDLProxy"/>
+  &lt;con:entry key="Content-Type" value="text/xml"/>
+&lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8280/services/ReceiptsWSDLProxy.ReceiptsWSDLProxyHttpSoap12Endpoint</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+		   <p:_getreceipts_yearend xmlns:p="http://ws.wso2.org/dataservice">		    
+		      <p:YearEnd>2003</p:YearEnd>
+		   </p:_getreceipts_yearend>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="3f765bcb-1dbd-4edc-b342-0c298193c587"/><con:assertion type="SOAP Fault Assertion" id="7af6ced9-8d80-4fb4-921d-e703fab6279c"/><con:assertion type="XPath Match" id="faeb1a93-9fbe-4138-b282-b65ec1dcdcec" name="match year"><con:configuration><path>//receipts/@year</path><content>2003</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" id="e28372a1-b88e-4f16-a0c3-71bfe85e3325" name="match total paid over"><con:configuration><path>declare namespace d='http://ws.wso2.org/dataservice'
+//receipts/d:total_paid_over</path><content>317174</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" id="93644a52-f46d-4892-a802-e9987dcedb9f" name="match bank levy nil"><con:configuration><path>declare namespace xsi="http://www.w3.org/2001/XMLSchema-instance"
+declare namespace d='http://ws.wso2.org/dataservice'
+//receipts/d:bank_levy/@xsi:nil</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="67e12dc3-f2e6-4eb6-b236-2200f4f3155c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="YearWithNoData" searchProperties="true"><con:settings/><con:testStep type="request" name="SOAPTaxRequestWithYearWithNoData" id="11a1ae0c-1f71-45a1-8b49-df375db34339"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RDBMSDataServiceSOAP12Binding</con:interface><con:operation>_getreceipts_yearend</con:operation><con:request name="SOAPTaxRequestWithYearWithNoData" id="b23c6b50-3cf0-4ec8-8782-f258fb0103bb"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="SOAPAction" value="http://localhost:8280/services/ReceiptsWSDLProxy"/>
+  &lt;con:entry key="Content-Type" value="text/xml"/>
+&lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8280/services/ReceiptsWSDLProxy.ReceiptsWSDLProxyHttpSoap12Endpoint</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+		   <p:_getreceipts_yearend xmlns:p="http://ws.wso2.org/dataservice">		    
+		      <p:YearEnd>2020</p:YearEnd>
+		   </p:_getreceipts_yearend>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="3f765bcb-1dbd-4edc-b342-0c298193c587"/><con:assertion type="SOAP Fault Assertion" id="7af6ced9-8d80-4fb4-921d-e703fab6279c"/><con:assertion type="XPath Match" id="faeb1a93-9fbe-4138-b282-b65ec1dcdcec" name="match year"><con:configuration><path>//receipts/@year</path><content/><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService id="9d44c718-859d-4a35-8b66-2c8c434581e3" port="8080" path="/services/mockRDBMSDataService" host="localhost" name="Mock Tax Receipts Service" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="_getreceipts_yearend" id="44d53f07-3e0e-4bc7-9606-ead7bc23cfa4" interface="RDBMSDataServiceSOAP11Binding" operation="_getreceipts_yearend"><con:settings/><con:defaultResponse>Response for valid year</con:defaultResponse><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:response name="Response for valid year" id="cc8bba6d-d246-4865-a7d4-36fd419c302c" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+        <Entries xmlns="http://ws.wso2.org/dataservice">
+            <Entry>
+                <year_end>2003-01-01+00:00</year_end>
+                <total_paid_over>317174</total_paid_over>
+                <total_hmrc_receipts>324725</total_hmrc_receipts>
+                <paye>94243</paye>
+                <sa>16059</sa>
+                <capital_gains_tax>1596</capital_gains_tax>
+                <nics>64553</nics>
+                <vat>63451</vat>
+                <total_corporation_tax>29488</total_corporation_tax>
+                <offshore_corporation_tax>3662</offshore_corporation_tax>
+                <bank_levy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </Entry>
+        </Entries>
+    </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:_getreceipts_yearend"/></con:response><con:response name="Response for year with no data" id="31a8d7f4-fb87-437c-b6ef-cfd97127e281" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+    		<Entries xmlns="http://ws.wso2.org/dataservice"/>
+	</soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:_getreceipts_yearend"/></con:response><con:response name="Response for invalid year value" id="3cdf14de-4917-44ef-9ecf-42dd3440ff21" httpResponseStatus="500" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+    <soapenv:Fault xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+   <soapenv:Code>
+      <soapenv:Value>axis2ns6:INCOMPATIBLE_PARAMETERS_ERROR</soapenv:Value>
+   </soapenv:Code>
+   <soapenv:Reason>
+      <soapenv:Text xml:lang="en-US">DS Code: INCOMPATIBLE_PARAMETERS_ERROR Nested Exception:- javax.xml.stream.XMLStreamException: DS Fault Message: Error in 'SQLQuery.processPreNormalQuery': For input string: "asdasd" DS Code: INCOMPATIBLE_PARAMETERS_ERROR Source Data Service:- Name: RDBMSDataService Location: /RDBMSDataService.dbs Description: N/A Default Namespace: http://ws.wso2.org/dataservice Current Request Name: _getreceipts_yearend Current Params: {YearEnd=asdasd} Nested Exception:- java.lang.NumberFormatException: For input string: "asdasd"  </soapenv:Text>
+   </soapenv:Reason>
+   <soapenv:Detail>
+      <axis2ns5:DataServiceFault xmlns:axis2ns5="http://ws.wso2.org/dataservice">
+         <axis2ns5:current_params>{YearEnd=asdasd}</axis2ns5:current_params>
+         <axis2ns5:source_data_service>
+            <axis2ns5:data_service_name>RDBMSDataService</axis2ns5:data_service_name>
+            <axis2ns5:description>N/A</axis2ns5:description>
+            <axis2ns5:location>/RDBMSDataService.dbs</axis2ns5:location>
+            <axis2ns5:default_namespace>http://ws.wso2.org/dataservice</axis2ns5:default_namespace>
+         </axis2ns5:source_data_service>
+         <axis2ns5:ds_code>INCOMPATIBLE_PARAMETERS_ERROR</axis2ns5:ds_code>
+         <axis2ns5:nested_exception>java.lang.NumberFormatException: For input string: "asdasd"</axis2ns5:nested_exception>
+         <axis2ns5:current_request_name>_getreceipts_yearend</axis2ns5:current_request_name>
+      </axis2ns5:DataServiceFault>
+   </soapenv:Detail>
+</soapenv:Fault>
+</]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:_getreceipts_yearend"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>valid year</con:name><con:query>declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace p='http://ws.wso2.org/dataservice';
+//p:YearEnd</con:query><con:match>2003</con:match><con:response>Response for valid year</con:response></con:query><con:query><con:name>no data</con:name><con:query>declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace p='http://ws.wso2.org/dataservice';
+//p:YearEnd</con:query><con:match>2020</con:match><con:response>Response for year with no data</con:response></con:query><con:query><con:name>invalid</con:name><con:query>declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace p='http://ws.wso2.org/dataservice';
+//p:YearEnd</con:query><con:match>?</con:match><con:response>Response for invalid year value</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
