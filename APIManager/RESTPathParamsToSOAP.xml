@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="RESTPathParamsToSOAPxml" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <header description="SOAPAction" name="SOAPAction" scope="transport" value="http://localhost:8280/services/ReceiptsWSDLProxy"/>
+    <property action="remove" name="REST_URL_POSTFIX" scope="axis2"/>
+    <payloadFactory description="transform" media-type="xml">
+        <format>
+            <tax:_getreceipts_yearend xmlns:tax="http://localhost:8280/services/ReceiptsWSDLProxy">
+                <tax:YearEnd>$1</tax:YearEnd>
+            </tax:_getreceipts_yearend>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.year')"/>
+        </args>
+    </payloadFactory>
+    <!-- Here we are setting the content type which the web service expects -->
+    <property description="messageProperty" name="messageType" scope="axis2" type="STRING" value="text/xml"/>
+</sequence>
